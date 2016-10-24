@@ -1,41 +1,39 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <!-- Meta Data -->
     <meta charset="utf-8">
-    <meta name="description" content="Slack Statistics">
-
-    <!-- Fonts & CSS -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:700">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-
-    <!-- Page Title -->
+    <meta content="Slack Statistics" name="description"><!-- Fonts & CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
     <title>Slack Statistics</title>
 </head>
-
 <body>
-    <h1 id="title">Slack Statistics for</h1>
+    <center>
+        <h1 id="title">Slack statistics for</h1>
+    </center>
     <div id="stats">
         <div id="messageCounterContainers">
-            <div id="messageTodayCounterContainer">
-                <h2 id="description">Number of messages sent today:</h2>
-                <h1 id="todayCounter" class="data"></h1>
-            </div>
-            <div id="messageYesterdayCounterContainer">
-                <h2 id="description">Number of messages sent yesterday:</h2>
-                <h1 id="yesterdayCounter" class="data"></h1>
-            </div>
-            <div>
-                <h2 id="compare">That's .. messages .. than yesterday!</h2>
-            </div>
-            <div id="mostTalkativeUserContainer">
-                <h2 id="description">Most talkative user today:</h2>
-                <h1 id="mostTalkativeUser" class="data"></h1>
-            </div>
+            <center>
+                <div id="wrapper">
+                    <div class="colour1">
+                        <h1 class="data" id="todayCounter">~</h1>
+                        <h2 id="description">messages have been sent on Slack today.</h2>
+                    </div>
+                    <div class="colour2">
+                        <h1 class="data" id="yesterdayCounter">~</h1>
+                        <h2 id="description">messages were sent yesterday.</h2>
+                        <h2 id="compare">That's ... messages ... than yesterday!</h2>
+                    </div>
+                    <div class="colour3">
+                        <h1 class="data" id="mostTalkativeUser1">~</h1>
+                        <h2 id="description">is today's most talkative user.</h2>
+                    </div>
+                </div>
+            </center>
         </div>
     </div>
-    <script src="js/stats.js"></script>
+    <script src="js/stats.js">
+    </script>
 </body>
-
 </html>

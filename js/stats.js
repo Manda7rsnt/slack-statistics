@@ -1,6 +1,6 @@
 // Slack Statistics
 // Settings
-var slackToken = "PASTE SLACK TOKEN HERE";
+var slackToken = "xoxp-95278616931-95346910290-95344069377-74b4ea8e564a3e308185db008ec7a1c4";
 
 // Queries
 var todayQuery = "on:today";
@@ -143,7 +143,7 @@ function getData() {
 };
 
 function postToHTML() {
-    document.getElementById("title").innerHTML = 'Slack Statistics for "' + teamName + '"';
+    document.getElementById("title").innerHTML = 'Slack statistics for <span id="teamNameStyle">' + teamName + '</span>';
     document.getElementById("todayCounter").innerHTML = todayCount;
     document.getElementById("yesterdayCounter").innerHTML = yesterdayCount;
 
