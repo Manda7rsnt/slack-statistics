@@ -144,7 +144,7 @@ function getData() {
 };
 
 function postToHTML() {
-    document.getElementById("title").innerHTML = 'Slack statistics for <span id="teamNameStyle">' + teamName + '</span>';
+    document.getElementById("title").innerHTML = 'Slack stats for <span id="teamNameStyle">' + teamName + '</span>';
     document.getElementById("todayCounter").innerHTML = todayCount;
     document.getElementById("yesterdayCounter").innerHTML = yesterdayCount;
 
