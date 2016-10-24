@@ -40,8 +40,8 @@ body {
 
 .colour1 {
     background-color: #3EB890;
-    width: 25%;
-    height: 50%;
+    width: 50vh;
+    height: 50vh;
     float: left;
     padding: 10px;
     margin: 10px;
@@ -49,8 +49,8 @@ body {
 
 .colour2 {
     background-color: #70CADB;
-    width: 25%;
-    height: 50%;
+    width: 50vh;
+    height: 50vh;
     float: left;
     padding: 10px;
     margin: 10px;
@@ -58,15 +58,15 @@ body {
 
 .colour3 {
     background-color: #E01765;
-    width: 25%;
-    height: 50%;
+    width: 50vh;
+    height: 50vh;
     float: left;
     padding: 10px;
     margin: 10px;
 }
 
 .data {
-    font-size: 7em !important;
+    font-size: 6em !important;
     line-height: .4;
     color: #fff !important;
 }
