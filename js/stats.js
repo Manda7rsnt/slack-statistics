@@ -153,7 +153,9 @@ function postToHTML() {
         document.getElementById("compare").innerHTML = "That's ~" + Math.abs(diffPercentage) + "% messages less than yesterday!";
     };
 
-    document.getElementById("mostTalkativeUser").innerHTML = userMostTalkative[0] + " with " + userMostTalkative[1] + " messages";
+    document.getElementById("mostTalkativeUser").innerHTML = userMostTalkative[0];
+    document.getElementById("compare2").innerHTML = "is today's most talkative user, with " + userMostTalkative[1] + " messages.";
+
 };
 
 getData();

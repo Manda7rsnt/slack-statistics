@@ -1,5 +1,6 @@
 html, body {
     height: 100%;
+
 }
 
 html {
@@ -12,10 +13,11 @@ body {
     vertical-align: middle;
 }
 
-#description,#compare {
+#description,#compare,#compare2 {
     font-family: 'Montserrat',sans-serif;
     color: #fcfdff;
     font-weight: 300;
+    font-size:1.5em;
 }
 
 #todayCounter,#mostTalkativeUser {
