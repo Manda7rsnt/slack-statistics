@@ -1,5 +1,6 @@
 // Primary JavaScript for Slack Statistics
-// Settings
+
+// Settings and initialisation
 var slackToken = "YOUR-TOKEN-HERE";
 
 // Queries

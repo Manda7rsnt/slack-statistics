@@ -1,3 +1,5 @@
+/* Primary stylesheet for Slack Statistics */
+
 html, body {
     height: 100%;
 
@@ -14,26 +16,22 @@ body {
 }
 
 #description,#compare,#compare2 {
-    font-family: 'Montserrat',sans-serif;
     color: #fcfdff;
     font-weight: 300;
     font-size:1.5em;
 }
 
 #todayCounter,#mostTalkativeUser {
-    font-family: 'Montserrat',sans-serif;
     font-size: 3em;
     color: #424242;
 }
 
 #yesterdayCounter {
-    font-family: 'Montserrat',sans-serif;
     font-size: 3em;
     color: #424242;
 }
 
 #title {
-    font-family: 'Montserrat',sans-serif;
     font-size: 3.5em;
     color: #fff;
     font-weight: 300;
