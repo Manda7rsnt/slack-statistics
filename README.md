@@ -13,4 +13,9 @@
 
 ## Getting a token
 
-![screenshot](http://i.imgur.com/4WtRU8w.png)
+* You can grab a test token from [here](https://api.slack.com/docs/oauth-test-tokens). Please note the following warning:
+
+> Test tokens are just for you. Never share test tokens with other users or applications. Do not publish test tokens in public code repositories. Review token safety tips.
+
+## Screenshots
+![Screenshot](http://i.imgur.com/4WtRU8w.png)
