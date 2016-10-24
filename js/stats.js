@@ -10,7 +10,8 @@ var yesterdayQuery = "on:yesterday";
 var userName = [],
     userMessage = [],
     userMessageCount = [],
-    userMostTalkative = []; // ..[0] = username; ..[1] = # of messages
+    userMostTalkative = [], // ..[0] = username; ..[1] = # of messages
+	userMessageCountPromise = [];
 
 var userCount, teamName, todayCount, yesterdayCount, diffPercentage;
 
@@ -87,7 +88,7 @@ function data(query, type, proc, index) {
                             if (response.members[i].is_bot != true || response.members[i].profile.real_name != "slackbot") {
                                 userName.push(response.members[i].profile.real_name); // Push real names to userName array
                                 userMessage.push("from:" + response.members[i].name); // Push "from:username" to userMessage array
-                                data(todayQuery + "+" + "from:" + response.members[i].name, "search", "userMessageCount", i); // Get number of messages
+                                userMessageCountPromise.push(data(todayQuery + "+" + "from:" + response.members[i].name, "search", "userMessageCount", i)); // Get number of messages
                             } else {
                                 return undefined;
                             };
@@ -123,9 +124,11 @@ function getPercentage() {
 
 function getTalkativeUser() {
     return new Promise(function(resolve, reject) {
-        userMostTalkative[0] = userName[getIndexOfMax(userMessageCount)];
-        userMostTalkative[1] = getMaxOfArray(userMessageCount);
-        resolve();
+        Promise.all(userMessageCountPromise).then(() => {
+            userMostTalkative[0] = userName[getIndexOfMax(userMessageCount)];
+            userMostTalkative[1] = getMaxOfArray(userMessageCount);
+            resolve();
+        });
     })
 };
 
