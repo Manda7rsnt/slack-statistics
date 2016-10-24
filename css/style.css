@@ -1,34 +1,86 @@
-#description, #compare {
-    padding-left: 2.2em;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1em;
+/* Primary stylesheet for Slack Statistics */
+
+html, body {
+    height: 100%;
+
+}
+
+html {
+    display: table;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#description,#compare,#compare2 {
+    color: #fcfdff;
+    font-weight: 300;
+    font-size:1.5em;
+}
+
+#todayCounter,#mostTalkativeUser {
+    font-size: 3em;
     color: #424242;
 }
 
-#messageCounterContainer{
-    float: left;
-}
-#todayCounter, #mostTalkativeUser {
-    padding-left: 0.7em;
-    margin-top: -0.4em;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 3em;
-    color: #424242;
-}
 #yesterdayCounter {
-    padding-left: 0.7em;
-    margin-top: -0.4em;
-    font-family: 'Montserrat', sans-serif;
     font-size: 3em;
     color: #424242;
 }
+
 #title {
-    padding-left: 0.6em;
-    font-family: 'Montserrat', sans-serif;
     font-size: 3.5em;
-    color: #424242;
+    color: #fff;
+    font-weight: 300;
 }
+
+#teamNameStyle {
+    font-size: 62pt;
+}
+
 body {
-    background: #FEFCFB;
+    background: #443642;
+    font-family: 'Montserrat',sans-serif;
     margin: 2em;
+}
+
+#wrapper {
+    width: 100%;
+    clear: both;
+}
+
+.colour1 {
+    background-color: #3EB890;
+    width: 50vh;
+    height: 50vh;
+    float: left;
+    padding: 10px;
+    margin: 10px;
+}
+
+.colour2 {
+    background-color: #70CADB;
+    width: 50vh;
+    height: 50vh;
+    float: left;
+    padding: 10px;
+    margin: 10px;
+}
+
+.colour3 {
+    background-color: #E01765;
+    width: 50vh;
+    height: 50vh;
+    float: left;
+    padding: 10px;
+    margin: 10px;
+}
+
+.data {
+    font-size: 6em !important;
+    line-height: .4;
+    color: #fff !important;
 }

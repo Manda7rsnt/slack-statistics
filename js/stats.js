@@ -1,6 +1,7 @@
-// Slack Statistics
-// Settings
-var slackToken = "PASTE SLACK TOKEN HERE";
+// Primary JavaScript for Slack Statistics
+
+// Settings and initialisation
+var slackToken = "YOUR-TOKEN-HERE";
 
 // Queries
 var todayQuery = "on:today";
@@ -146,7 +147,7 @@ function getData() {
 };
 
 function postToHTML() {
-    document.getElementById("title").innerHTML = 'Slack Statistics for "' + teamName + '"';
+    document.getElementById("title").innerHTML = 'Slack statistics for <span id="teamNameStyle">' + teamName + '</span>';
     document.getElementById("todayCounter").innerHTML = todayCount;
     document.getElementById("yesterdayCounter").innerHTML = yesterdayCount;
 
@@ -156,7 +157,9 @@ function postToHTML() {
         document.getElementById("compare").innerHTML = "That's ~" + Math.abs(diffPercentage) + "% messages less than yesterday!";
     };
 
-    document.getElementById("mostTalkativeUser").innerHTML = userMostTalkative[0] + " with " + userMostTalkative[1] + " messages";
+    document.getElementById("mostTalkativeUser").innerHTML = userMostTalkative[0];
+    document.getElementById("compare2").innerHTML = "is today's most talkative user, with " + userMostTalkative[1] + " messages.";
+
 };
 
 getData();
