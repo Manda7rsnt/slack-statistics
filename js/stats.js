@@ -1,7 +1,7 @@
 // Primary JavaScript for Slack Statistics
 
 // Settings and initialisation
-var slackToken = "xoxp-2849779886-2849810124-95795725287-bd74e98e569e8d7ffd11ff7eb2b90717";
+var slackToken = "YOUR_TOKEN_HERE";
 
 // Queries
 var todayQuery = "on:today";
