@@ -1,4 +1,7 @@
 # slack-statistics
+[![](https://img.shields.io/github/issues-raw/pvdsp/slack-statistics.svg)]() 
+[![GitHub contributors](https://img.shields.io/github/contributors/pvdsp/slack-statistics.svg)]()
+[![license](https://img.shields.io/github/license/pvdsp/slack-statistics.svg)]()
 
 **slack-statistics** is a clean and simple display board for your Slack team.
 * Made with JavaScript and the Slack API
