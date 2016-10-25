@@ -85,3 +85,9 @@ body {
     line-height: .8;
     color: #fff !important;
 }
+
+.welcomeMessage {
+
+    color: #fff;
+    line-height: 0.1;
+}
