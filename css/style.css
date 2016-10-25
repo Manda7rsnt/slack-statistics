@@ -89,6 +89,7 @@ body {
 .data {
     font-size: 6em;
     line-height: .8;
+    word-wrap: break-word;
     color: #fff !important;
 }
 
