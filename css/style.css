@@ -35,6 +35,7 @@ body {
     font-size: 3.5em;
     color: #fff;
     font-weight: 300;
+    word-wrap: break-word;
 }
 
 #teamNameStyle {
@@ -80,7 +81,13 @@ body {
 }
 
 .data {
-    font-size: 4vw !important;
-    word-wrap: break-word;
+    font-size: 8vw !important;
     color: #fff !important;
+    line-height: 0.3;
+}
+
+.dataSpecial {
+    color: #fff !important;
+    overflow: hidden;
+    font-size: 12vh !important;
 }
