@@ -81,12 +81,13 @@ body {
 }
 
 .data {
-    font-size: 4vw !important;
+    font-size: 8vw !important;
     color: #fff !important;
+    line-height: 0.3;
 }
 
 .dataSpecial {
     color: #fff !important;
     overflow: hidden;
-    font-size: 7vh !important;
+    font-size: 12vh !important;
 }
