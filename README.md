@@ -1,5 +1,6 @@
 # slack-statistics
-[![](https://img.shields.io/github/issues-raw/pvdsp/slack-statistics.svg)]() 
+[![](https://img.shields.io/github/issues/pvdsp/slack-statistics.svg)]() 
+[![](https://img.shields.io/github/issues-pr-closed-raw/pvdsp/slack-statistics.svg)]()
 [![GitHub contributors](https://img.shields.io/github/contributors/pvdsp/slack-statistics.svg)]()
 [![license](https://img.shields.io/github/license/pvdsp/slack-statistics.svg)]()
 
