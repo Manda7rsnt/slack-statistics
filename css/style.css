@@ -52,6 +52,17 @@ body {
     clear: both;
 }
 
+.welcomeMessage {
+    color:white;
+    font-weight:300;
+}
+
+.header {
+    color:white;
+    line-height:0.9;
+    margin-top: 0.2em;
+}
+
 .colour1 {
     background-color: #3EB890;
     width: 50vh;
@@ -80,7 +91,6 @@ body {
 }
 
 .data {
-    font-size: 4vw !important;
     word-wrap: break-word;
     color: #fff !important;
 }
