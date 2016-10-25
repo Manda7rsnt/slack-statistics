@@ -31,16 +31,17 @@ function getIndexOfMax(numArray) {
     return numArray.indexOf(getMaxOfArray(numArray));
 }
 
-//SearchMessages Fn
-
+// Get the messages sent today and yesterday
 function SearchMessagesRequest(){
     var queries = ["today", "yesterday"];
+    //craete an array of promises for the queries above
     var proms =  queries.map((query)=>{
         return fetch("https://slack.com/api/search.messages?token=" + slackToken + "&query=on:" + query, requestOptions).then((response)=>{return response.json()});
     });
     return Promise.all(proms);
 }
 
+// Process the result of the SearchMessageRequest and store it in global variables
 function SearchMessageHandler(response){
     return new Promise((resolve, reject)=>{
         todayCount = (response.length>0 && typeof response[0] != 'undefined') ? response[0].messages.total : 0;
@@ -49,14 +50,18 @@ function SearchMessageHandler(response){
     });
 }
 
+// Get users list call
 function UserListRequest(){
     return fetch("https://slack.com/api/users.list?token=" + slackToken, requestOptions).then((response)=>{return response.json()});
 }
 
+// Get message Count for a user
 function UserMessageCountRequest(member){
     return fetch("https://slack.com/api/search.messages?token=" + slackToken + "&query=" + todayQuery + "+" + "from:" + member.name, requestOptions)
         .then((response)=>{
+            //Convert the response in a json object
             return response.json().then((resultObj)=>{
+                //Inject the member data into the object result that will be handled in getTalkativeUser
                 resultObj.member = member;
                 return Promise.resolve(resultObj);
             });
@@ -79,7 +84,6 @@ function TeamInfoRequest(){
 
 function TeamInfoHandler(response){
     return new Promise((resolve, reject)=>{
-        console.log(response)
         teamName = response.team.name;
         resolve();
     });
@@ -89,6 +93,7 @@ function TeamInfoHandler(response){
 function getPercentage() {
     return new Promise(function(resolve, reject) {
         var difference = todayCount - yesterdayCount;
+        //check if the yesterday's count is 0 show 100% in order to avoid division by 0 errors
         var percentage = (yesterdayCount === 0 ) ? 100 : Math.round(difference / Number(yesterdayCount) * 100);
         diffPercentage = percentage;
         resolve();
@@ -99,8 +104,8 @@ function getPercentage() {
 function getTalkativeUser() {
     return new Promise(function(resolve, reject) {
         Promise.all(userMessageCountPromise).then((response) => {
+            //sort the array of user by the number of messages sent and get the first entry with the highest value
             userMostTalkative = response.sort((a,b)=>{ return (a.messages.matches.length < b.messages.matches.length)})[0]
-            console.log(userMostTalkative)
             resolve();
         });
     })
