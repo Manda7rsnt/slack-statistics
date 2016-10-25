@@ -1,7 +1,7 @@
 // Primary JavaScript for Slack Statistics
 
 // Settings and initialisation
-var slackToken = "YOUR-TOKEN-HERE";
+var slackToken = "YOUR_TOKEN_HERE";
 
 // Queries
 var todayQuery = "on:today";
@@ -16,6 +16,12 @@ var userName = [],
 
 var userCount, teamName, todayCount, yesterdayCount, diffPercentage;
 
+var requestOptions = {
+    method: 'GET',
+    mode: 'cors',
+    redirect: 'follow',
+}
+
 // Help Functions
 function getMaxOfArray(numArray) {
     return Math.max.apply(null, numArray);
@@ -25,98 +31,70 @@ function getIndexOfMax(numArray) {
     return numArray.indexOf(getMaxOfArray(numArray));
 }
 
-// Data Function
-function data(query, type, proc, index) {
-    if (typeof index === 'undefined') {
-        index = null;
-    };
-    return new Promise(function(resolve, reject) { // Returning a promise!
-        var xhr = new XMLHttpRequest();
-        switch (type) {
-            case "search":
-                xhr.open("GET", "https://slack.com/api/search.messages?token=" + slackToken + "&query=" + query, true); // make GET request
-                break;
-            case "users":
-                xhr.open("GET", "https://slack.com/api/users.list?token=" + slackToken, true);
-                break;
-            case "info":
-                xhr.open("GET", "https://slack.com/api/team.info?token=" + slackToken, true);
-                break;
-            default:
-                reject({
-                    ok: false,
-                    error: "Invalid request"
-                })
-        };
-
-        xhr.send();
-        /*
-         * Changed to a load listener in order to not have to check for ready state
-         */
-        xhr.addEventListener("load", processRequest, false); // when state change -> do processRequest
-
-        function processRequest(e) {
-            // No need to check readyState now
-            if (xhr.status == 200) {
-                var response = JSON.parse(xhr.responseText); // parse response
-                if (!response.ok) {
-                    reject(response); //Slack returns its error message with a 200 code
-                    return;
-                }
-                switch (proc) {
-                    case "teamName":
-                        teamName = response.team.name;
-                        resolve(); //Resolve promise
-                        break;
-                    case "todayCount":
-                        todayCount = response.messages.total;
-                        resolve(); //Resolve promise
-                        break;
-                    case "yesterdayCount":
-                        yesterdayCount = response.messages.total;
-                        resolve(); //Resolve promise
-                        break;
-                    case "userCount":
-                        userCount = Object.keys(response.members).length - 1;
-                        resolve(); //Resolve promise
-                        break;
-                    case "userMessageCount":
-                        userMessageCount[index] = response.messages.total;
-                        resolve(); //Resolve promise
-                        break;
-                    case "userList":
-                        for (i = 0; i < userCount; i++) {
-                            if (response.members[i].is_bot != true || response.members[i].profile.real_name != "slackbot") {
-                                userName.push(response.members[i].profile.real_name); // Push real names to userName array
-                                userMessage.push("from:" + response.members[i].name); // Push "from:username" to userMessage array
-                                userMessageCountPromise.push(data(todayQuery + "+" + "from:" + response.members[i].name, "search", "userMessageCount", i)); // Get number of messages
-                            } else {
-                                return undefined;
-                            };
-                        };
-                        resolve(); //Resolve promise
-                        break;
-                    default:
-                        reject({
-                            ok: false,
-                            error: "Invalid request"
-                        }); // Error on request and reject promise
-                };
-            } else {
-                reject({
-                    ok: false,
-                    error: "Invalid response",
-                    code: xhr.status
-                }); //Error on response type and reject promise
-            }
-        };
+// Get the messages sent today and yesterday
+function SearchMessagesRequest(){
+    var queries = ["today", "yesterday"];
+    //craete an array of promises for the queries above
+    var proms =  queries.map((query)=>{
+        return fetch("https://slack.com/api/search.messages?token=" + slackToken + "&query=on:" + query, requestOptions).then((response)=>{return response.json()});
     });
-};
+    return Promise.all(proms);
+}
+
+// Process the result of the SearchMessageRequest and store it in global variables
+function SearchMessageHandler(response){
+    return new Promise((resolve, reject)=>{
+        todayCount = (response.length>0 && typeof response[0] != 'undefined') ? response[0].messages.total : 0;
+        yesterdayCount = (response.length>0 && typeof response[1] != 'undefined') ? response[1].messages.total : 0;
+        resolve();
+    });
+}
+
+// Get users list call
+function UserListRequest(){
+    return fetch("https://slack.com/api/users.list?token=" + slackToken, requestOptions).then((response)=>{return response.json()});
+}
+
+// Get message Count for a user
+function UserMessageCountRequest(member){
+    return fetch("https://slack.com/api/search.messages?token=" + slackToken + "&query=" + todayQuery + "+" + "from:" + member.name, requestOptions)
+        .then((response)=>{
+            //Convert the response in a json object
+            return response.json().then((resultObj)=>{
+                //Inject the member data into the object result that will be handled in getTalkativeUser
+                resultObj.member = member;
+                return Promise.resolve(resultObj);
+            });
+        });
+}
+
+function UserListHandler(response){
+    return new Promise((resolve, reject)=>{
+        userCount = Object.keys(response.members).length - 1;
+        userName = response.members.map((member)=> { return member.profile.name});
+        userMessage = response.members.map((member) => { return "from:" + member.name })
+        userMessageCountPromise = response.members.map((member)=>{ return UserMessageCountRequest(member)});
+        resolve();
+    });
+}
+
+function TeamInfoRequest(){
+    return fetch("https://slack.com/api/team.info?token=" + slackToken, requestOptions).then((response)=>{return response.json()});
+}
+
+function TeamInfoHandler(response){
+    return new Promise((resolve, reject)=>{
+        teamName = response.team.name;
+        resolve();
+    });
+}
+
 
 function getPercentage() {
     return new Promise(function(resolve, reject) {
         var difference = todayCount - yesterdayCount;
-        var percentage = Math.round(difference / Number(yesterdayCount) * 100);
+        //check if the yesterday's count is 0 show 100% in order to avoid division by 0 errors
+        var percentage = (yesterdayCount === 0 ) ? 100 : Math.round(difference / Number(yesterdayCount) * 100);
         diffPercentage = percentage;
         resolve();
     })
@@ -125,9 +103,9 @@ function getPercentage() {
 
 function getTalkativeUser() {
     return new Promise(function(resolve, reject) {
-        Promise.all(userMessageCountPromise).then(() => {
-            userMostTalkative[0] = userName[getIndexOfMax(userMessageCount)];
-            userMostTalkative[1] = getMaxOfArray(userMessageCount);
+        Promise.all(userMessageCountPromise).then((response) => {
+            //sort the array of user by the number of messages sent and get the first entry with the highest value
+            userMostTalkative = response.sort((a,b)=>{ return (a.messages.matches.length < b.messages.matches.length)})[0]
             resolve();
         });
     })
@@ -135,14 +113,16 @@ function getTalkativeUser() {
 
 function getData() {
     // Chain all the requests and console.log caught errors
-    data(null, "info", "teamName")
-        .then(() => data(todayQuery, "search", "todayCount"))
-        .then(() => data(yesterdayQuery, "search", "yesterdayCount"))
-        .then(() => data(null, "users", "userCount"))
-        .then(() => data(null, "users", "userList"))
-        .then(() => getPercentage())
-        .then(() => getTalkativeUser())
-        .then(() => postToHTML())
+
+    TeamInfoRequest()
+        .then(TeamInfoHandler)
+        .then(SearchMessagesRequest)
+        .then(SearchMessageHandler)
+        .then(UserListRequest)
+        .then(UserListHandler)
+        .then(getPercentage)
+        .then(getTalkativeUser)
+        .then(postToHTML)
         .catch(error => console.log(error))
 };
 
@@ -157,8 +137,8 @@ function postToHTML() {
         document.getElementById("compare").innerHTML = "That's ~" + Math.abs(diffPercentage) + "% messages less than yesterday!";
     };
 
-    document.getElementById("mostTalkativeUser").innerHTML = userMostTalkative[0];
-    document.getElementById("compare2").innerHTML = "is today's most talkative user, with " + userMostTalkative[1] + " messages.";
+    document.getElementById("mostTalkativeUser").innerHTML = userMostTalkative.member.profile.real_name;
+    document.getElementById("compare2").innerHTML = "is today's most talkative user, with " + userMostTalkative.messages.matches.length + " messages.";
 
 };
 
