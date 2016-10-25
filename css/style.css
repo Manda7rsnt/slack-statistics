@@ -39,6 +39,7 @@ body {
 
 #teamNameStyle {
     font-size: 62pt;
+    line-height:1.3;
 }
 
 body {
@@ -50,17 +51,6 @@ body {
 #wrapper {
     width: 100%;
     clear: both;
-}
-
-.welcomeMessage {
-    color:white;
-    font-weight:300;
-}
-
-.header {
-    color:white;
-    line-height:0.9;
-    margin-top: 0.2em;
 }
 
 .colour1 {
@@ -91,6 +81,7 @@ body {
 }
 
 .data {
-    word-wrap: break-word;
+    font-size: 6em;
+    line-height: .8;
     color: #fff !important;
 }
