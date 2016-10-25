@@ -80,7 +80,7 @@ body {
 }
 
 .data {
-    font-size: 6em !important;
-    line-height: .4;
+    font-size: 4vw !important;
+    word-wrap: break-word;
     color: #fff !important;
 }
