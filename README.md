@@ -20,7 +20,9 @@ Brief explanation of how `stats.js` works, to be added as part of documentation
 
 ## Getting a token
 
-* You can grab a test token from [here](https://api.slack.com/docs/oauth-test-tokens). Please note the following warning:
+* You can grab a test token from [here](https://api.slack.com/docs/oauth-test-tokens). 
+* When contributing, please remember to [look after](https://labs.detectify.com/2016/04/28/slack-bot-token-leakage-exposing-business-critical-information/) your tokens (beginning with `xoxp`)
+* Also, please note the following warning:
 
 > Test tokens are just for you. Never share test tokens with other users or applications. Do not publish test tokens in public code repositories. Review token safety tips.
 
