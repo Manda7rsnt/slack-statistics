@@ -3,19 +3,19 @@
 <head>
     <!-- Metadata -->
     <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1"
     <meta content="Slack Statistics" name="description">
     <!-- Fonts & CSS -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700" rel="stylesheet" type="text/css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <title>Slack Statistics</title>
-  
 </head>
 <body>
     <a href='https://github.com/pvdsp/slack-statistics' style='position:fixed;padding:5px 45px;width:128px;top:50px;right:-50px;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg);box-shadow:0 0 0 3px #3eb890;text-shadow:0 0 0 #ffffff;background-color:#3eb890;color:#ffffff;font-size:13px;font-family:sans-serif;text-decoration:none;font-weight:bold;border:2px dotted #ffffff;-webkit-backface-visibility:hidden;letter-spacing:.5px;'>Fork me on GitHub</a>
     <center>
-        <h2 style="color:white;line-height:0.3;font-weight:300;"><script src="js/welcomeMessage.js"></script></h2>
-        <h1 style="color:white;line-height:0.7" id="title">Slack statistics for</h1>
+        <h2 class="welcomeMessage"><script src="js/welcomeMessage.js"></script></h2>
+        <h1 class="header" id="title">Fetching Slack statistics...</h1>
 
     <div id="stats">
         <div id="messageCounterContainers">
@@ -30,7 +30,7 @@
                         <h2 id="compare">That's ~ messages ~ than yesterday!</h2>
                     </div>
                     <div class="colour3">
-                        <div id="resizer"><h1 class="dataSpecial" id="mostTalkativeUser">~</h1></div>
+                        <h1 class="data" id="mostTalkativeUser">FirstNameLastName</h1>
                         <h2 id="compare2">is today's most talkative user, with ~ messages</h2>
                     </div>
                 </div>
@@ -38,8 +38,7 @@
         </div>
     </div>
       </center>
-    
-    <script src="js/jquery.min.js"></script>
-    <script src="js/stats.js"></script>
+    <script src="js/stats.js">
+    </script>
 </body>
 </html>
