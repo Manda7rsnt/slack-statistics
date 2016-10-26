@@ -150,7 +150,7 @@ function postToHTML() {
     };
 
     document.getElementById("mostTalkativeUser").innerHTML = userMostTalkative.member.profile.real_name;
-    document.getElementById("compare2").innerHTML = "is today's most talkative user, with " + userMostTalkative.messages.matches.length + " messages.";
+    document.getElementById("compare2").innerHTML = "is today's most talkative user, with " + userMostTalkative.messages.total + " messages.";
     document.getElementById("mostTalkativeUserPicture").src = userMostTalkative.member.profile.image_192;
 };
 
