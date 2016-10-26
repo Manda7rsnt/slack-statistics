@@ -105,7 +105,7 @@ function getTalkativeUser() {
     return new Promise(function(resolve, reject) {
         Promise.all(userMessageCountPromise).then((response) => {
             //sort the array of user by the number of messages sent and get the first entry with the highest value
-            userMostTalkative = response.sort((a,b)=>{ return (a.messages.matches.length < b.messages.matches.length)})[0]
+            userMostTalkative = response.sort((a,b)=>{ return (a.messages.total < b.messages.total)})[0]
             resolve();
         });
     })
