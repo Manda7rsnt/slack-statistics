@@ -27,4 +27,4 @@ Brief explanation of how `stats.js` works, to be added as part of documentation
 > Test tokens are just for you. Never share test tokens with other users or applications. Do not publish test tokens in public code repositories. Review token safety tips.
 
 ## Screenshots
-![Screenshot](http://i.imgur.com/oTuidkW.png)
+![Screenshot](https://i.imgur.com/RN2OcBz.png)
