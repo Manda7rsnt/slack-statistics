@@ -2,7 +2,6 @@
 
 html, body {
     height: 100%;
-
 }
 
 html {
@@ -15,13 +14,13 @@ body {
     vertical-align: middle;
 }
 
-#description,#compare,#compare2 {
+#description, #compare, #compare2 {
     color: #fcfdff;
     font-weight: 300;
-    font-size:1.5em;
+    font-size: 1.5em;
 }
 
-#todayCounter,#mostTalkativeUser {
+#todayCounter, #mostTalkativeUser {
     font-size: 3em;
     color: #424242;
 }
@@ -38,14 +37,14 @@ body {
 }
 
 .header {
-    color:white;
-    line-height:0.9;
+    color: white;
+    line-height: 0.9;
     margin-top: 0.2em;
 }
 
 body {
     background: #443642;
-    font-family: 'Montserrat',sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin: 2em;
 }
 
