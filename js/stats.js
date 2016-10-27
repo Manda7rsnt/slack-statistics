@@ -31,6 +31,12 @@ function getIndexOfMax(numArray) {
     return numArray.indexOf(getMaxOfArray(numArray));
 }
 
+function getHighestResolutionImage(profile) {
+    return ['original', '1024', '512', '192']
+      .map((resolutionString) => profile['image_' + resolutionString])
+      .find((possibleImageUrl) => possibleImageUrl);
+}
+
 // Get the messages sent today and yesterday
 function SearchMessagesRequest() {
     var queries = ["today", "yesterday"];
@@ -151,7 +157,7 @@ function postToHTML() {
 
     document.getElementById("mostTalkativeUser").innerHTML = userMostTalkative.member.profile.real_name;
     document.getElementById("compare2").innerHTML = "is today's most talkative user, with " + userMostTalkative.messages.total + " messages.";
-    document.getElementById("mostTalkativeUserPicture").src = userMostTalkative.member.profile.image_192;
+    document.getElementById("mostTalkativeUserPicture").src = getHighestResolutionImage(userMostTalkative.member.profile);
 };
 
 getData();
