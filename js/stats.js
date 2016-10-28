@@ -1,5 +1,15 @@
-// Primary JavaScript for Slack Statistics
-
+/** 
+ * File: Primary JavaScript for Slack Statistics (stats.js)
+ *
+ * Details:  Makes requests to Slack API and processes that info to display
+ * to users.  This script makes use of Javascript Promises to handle successful
+ * and failed calls to the API. Information about promises can be found here
+ * https://developers.google.com/web/fundamentals/getting-started/primers/promises.
+ * The Fetch API is also used in place of XMLHttpRequest. Information on that
+ * can be found at https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API.
+ *
+ */ 
+ 
 // Settings and initialisation
 var slackToken = "YOUR-TOKEN-HERE";
 
@@ -37,10 +47,13 @@ function getHighestResolutionImage(profile) {
       .find((possibleImageUrl) => possibleImageUrl);
 }
 
-// Get the messages sent today and yesterday
+/** 
+ * Get the messages sent today and yesterday.  Uses
+ * Fetch API as an improvement on XMLHttpRequest.
+ */
 function SearchMessagesRequest() {
     var queries = ["today", "yesterday"];
-    //craete an array of promises for the queries above
+    //create an array of promises for the queries above
     var proms = queries.map((query) => {
         return fetch("https://slack.com/api/search.messages?token=" + slackToken + "&query=on:" + query, requestOptions).then((response) => {
             return response.json()
@@ -49,7 +62,9 @@ function SearchMessagesRequest() {
     return Promise.all(proms);
 }
 
-// Process the result of the SearchMessageRequest and store it in global variables
+/**
+ * Process the result of the SearchMessageRequest and store it in global variables
+ */
 function SearchMessageHandler(response) {
     return new Promise((resolve, reject) => {
         todayCount = (response.length > 0 && typeof response[0] != 'undefined') ? response[0].messages.total : 0;
@@ -58,14 +73,18 @@ function SearchMessageHandler(response) {
     });
 }
 
-// Get users list call
+/**
+ * Get users list call
+ */
 function UserListRequest() {
     return fetch("https://slack.com/api/users.list?token=" + slackToken, requestOptions).then((response) => {
         return response.json()
     });
 }
 
-// Get message Count for a user
+/**
+ * Get message Count for a user
+ */
 function UserMessageCountRequest(member) {
     return fetch("https://slack.com/api/search.messages?token=" + slackToken + "&query=" + todayQuery + "+" + "from:" + member.name, requestOptions)
         .then((response) => {
@@ -78,6 +97,9 @@ function UserMessageCountRequest(member) {
         });
 }
 
+/**
+ * Place values found in UserList response into corresponding variables
+ */
 function UserListHandler(response) {
     return new Promise((resolve, reject) => {
         userCount = Object.keys(response.members).length - 1;
@@ -94,12 +116,18 @@ function UserListHandler(response) {
     });
 }
 
+/**
+ * Get team info response.
+ */
 function TeamInfoRequest() {
     return fetch("https://slack.com/api/team.info?token=" + slackToken, requestOptions).then((response) => {
         return response.json()
     });
 }
 
+/**
+ * Place team info response in teamName
+ */
 function TeamInfoHandler(response) {
     return new Promise((resolve, reject) => {
         teamName = response.team.name;
@@ -107,7 +135,10 @@ function TeamInfoHandler(response) {
     });
 }
 
-
+/**
+ * Get percentage of messages sent in current day compared to previous day.
+ * populate diffPercentage with this value.
+ */
 function getPercentage() {
     return new Promise(function(resolve, reject) {
         var difference = todayCount - yesterdayCount;
@@ -118,7 +149,10 @@ function getPercentage() {
     })
 };
 
-
+/**
+ * Get most talkative user.  Populate userMostTalkative with a reference to
+ * this user. 
+ */
 function getTalkativeUser() {
     return new Promise(function(resolve, reject) {
         Promise.all(userMessageCountPromise).then((response) => {
@@ -129,14 +163,19 @@ function getTalkativeUser() {
     })
 };
 
+/**
+ * Send out all requests and handle their responses.
+ * 
 function getData() {
-    // Chain all the requests and console.log caught errors
-
-    TeamInfoRequest()
+  /* Chain all the requests and console.log caught errors.
+     After each successful call the next call will execute, however if a 
+     call fails there will be no more calls and the error will be logged 
+   */ 
+    TeamInfoRequest() // response data forwarded
         .then(TeamInfoHandler)
-        .then(SearchMessagesRequest)
+        .then(SearchMessagesRequest) // response data forwarded
         .then(SearchMessageHandler)
-        .then(UserListRequest)
+        .then(UserListRequest) // response data forwarded
         .then(UserListHandler)
         .then(getPercentage)
         .then(getTalkativeUser)
@@ -144,6 +183,9 @@ function getData() {
         .catch(error => console.log(error))
 };
 
+/**
+ * Manipulate DOM to reflect values found in API requests.
+ */
 function postToHTML() {
     document.getElementById("title").innerHTML = 'Slack stats for ' + teamName;
     document.getElementById("todayCounter").innerHTML = todayCount;
