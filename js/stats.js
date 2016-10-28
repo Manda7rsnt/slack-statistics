@@ -1,4 +1,4 @@
-/** 
+/**
  * File: Primary JavaScript for Slack Statistics (stats.js)
  *
  * Details:  Makes requests to Slack API and processes that info to display
@@ -8,8 +8,8 @@
  * The Fetch API is also used in place of XMLHttpRequest. Information on that
  * can be found at https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API.
  *
- */ 
- 
+ */
+
 // Settings and initialisation
 var slackToken = "YOUR-TOKEN-HERE";
 
@@ -20,8 +20,8 @@ var yesterdayQuery = "on:yesterday";
 // Pre-defined Variables
 var userName = [],
     userMessage = [],
-    userMessageCount = [],
-    userMostTalkative = [], // ..[0] = username; ..[1] = # of messages
+    userMostTalkative = [],
+    userTalkativeRanking = [],
     userMessageCountPromise = [];
 
 var userCount, teamName, todayCount, yesterdayCount, diffPercentage;
@@ -47,7 +47,7 @@ function getHighestResolutionImage(profile) {
       .find((possibleImageUrl) => possibleImageUrl);
 }
 
-/** 
+/**
  * Get the messages sent today and yesterday.  Uses
  * Fetch API as an improvement on XMLHttpRequest.
  */
@@ -104,7 +104,7 @@ function UserListHandler(response) {
     return new Promise((resolve, reject) => {
         userCount = Object.keys(response.members).length - 1;
         userName = response.members.map((member) => {
-            return member.profile.name
+            return member.profile.real_name
         });
         userMessage = response.members.map((member) => {
             return "from:" + member.name
@@ -151,13 +151,14 @@ function getPercentage() {
 
 /**
  * Get most talkative user.  Populate userMostTalkative with a reference to
- * this user. 
+ * this user.
  */
 function getTalkativeUser() {
     return new Promise(function(resolve, reject) {
         Promise.all(userMessageCountPromise).then((response) => {
             //sort the array of user by the number of messages sent and get the first entry with the highest value
-            userMostTalkative = response.sort((a,b)=>{ return (a.messages.total < b.messages.total)})[0]
+            userMostTalkative = response.sort((a,b)=>{ return (a.messages.total < b.messages.total)})[0];
+            userTalkativeRanking = response.sort((a,b)=>{ return (a.messages.total < b.messages.total)});
             resolve();
         });
     })
@@ -165,12 +166,12 @@ function getTalkativeUser() {
 
 /**
  * Send out all requests and handle their responses.
- * 
+ */
 function getData() {
   /* Chain all the requests and console.log caught errors.
-     After each successful call the next call will execute, however if a 
-     call fails there will be no more calls and the error will be logged 
-   */ 
+     After each successful call the next call will execute, however if a
+     call fails there will be no more calls and the error will be logged
+   */
     TeamInfoRequest() // response data forwarded
         .then(TeamInfoHandler)
         .then(SearchMessagesRequest) // response data forwarded
@@ -200,6 +201,15 @@ function postToHTML() {
     document.getElementById("mostTalkativeUser").innerHTML = userMostTalkative.member.profile.real_name;
     document.getElementById("compare2").innerHTML = "is today's most talkative user, with " + userMostTalkative.messages.total + " messages.";
     document.getElementById("mostTalkativeUserPicture").src = getHighestResolutionImage(userMostTalkative.member.profile);
+
+    document.getElementById("realName1").innerHTML = userTalkativeRanking[0].member.profile.real_name;
+    document.getElementById("messages1").innerHTML = userTalkativeRanking[0].messages.total;
+
+    document.getElementById("realName2").innerHTML = userTalkativeRanking[1].member.profile.real_name;
+    document.getElementById("messages2").innerHTML = userTalkativeRanking[1].messages.total;
+
+    document.getElementById("realName3").innerHTML = userTalkativeRanking[2].member.profile.real_name;
+    document.getElementById("messages3").innerHTML = userTalkativeRanking[2].messages.total;
 };
 
 getData();
