@@ -1,4 +1,4 @@
-/** 
+/**
  * File: Primary JavaScript for Slack Statistics (stats.js)
  *
  * Details:  Makes requests to Slack API and processes that info to display
@@ -8,8 +8,8 @@
  * The Fetch API is also used in place of XMLHttpRequest. Information on that
  * can be found at https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API.
  *
- */ 
- 
+ */
+
 // Settings and initialisation
 var slackToken = "YOUR-TOKEN-HERE";
 
@@ -47,8 +47,8 @@ function getHighestResolutionImage(profile) {
       .find((possibleImageUrl) => possibleImageUrl);
 }
 
-/** 
- * Get the messages sent today and yesterday.  Uses
+/**
+ * Get the messages sent today and yesterday. Uses
  * Fetch API as an improvement on XMLHttpRequest.
  */
 function SearchMessagesRequest() {
@@ -151,7 +151,7 @@ function getPercentage() {
 
 /**
  * Get most talkative user.  Populate userMostTalkative with a reference to
- * this user. 
+ * this user.
  */
 function getTalkativeUser() {
     return new Promise(function(resolve, reject) {
@@ -165,12 +165,13 @@ function getTalkativeUser() {
 
 /**
  * Send out all requests and handle their responses.
- * 
+ */
 function getData() {
-  /* Chain all the requests and console.log caught errors.
-     After each successful call the next call will execute, however if a 
-     call fails there will be no more calls and the error will be logged 
-   */ 
+  /**
+   * Chain all the requests and console.log caught errors.
+   * After each successful call the next call will execute, however if a
+   * call fails there will be no more calls and the error will be logged
+   */
     TeamInfoRequest() // response data forwarded
         .then(TeamInfoHandler)
         .then(SearchMessagesRequest) // response data forwarded
