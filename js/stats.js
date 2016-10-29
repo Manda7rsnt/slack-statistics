@@ -15,16 +15,13 @@ var slackToken = "YOUR-TOKEN-HERE";
 
 // Queries
 var todayQuery = "on:today";
-var yesterdayQuery = "on:yesterday";
 
 // Pre-defined Variables
-var userName = [],
-    userMessage = [],
-    userMostTalkative = [],
+var userMostTalkative = [],
     userTalkativeRanking = [],
     userMessageCountPromise = [];
 
-var userCount, teamName, todayCount, yesterdayCount, diffPercentage;
+var teamName, todayCount, yesterdayCount, diffPercentage;
 
 var requestOptions = {
     method: 'GET',
@@ -33,13 +30,6 @@ var requestOptions = {
 }
 
 /* =========================== Helper Functions =========================== */
-function getMaxOfArray(numArray) {
-    return Math.max.apply(null, numArray);
-}
-
-function getIndexOfMax(numArray) {
-    return numArray.indexOf(getMaxOfArray(numArray));
-}
 
 function getHighestResolutionImage(profile) {
     return ['original', '1024', '512', '192']
@@ -114,13 +104,6 @@ function UserMessageCountRequest(member) {
  */
 function UserListHandler(response) {
     return new Promise((resolve, reject) => {
-        userCount = Object.keys(response.members).length - 1;
-        userName = response.members.map((member) => {
-            return member.profile.real_name
-        });
-        userMessage = response.members.map((member) => {
-            return "from:" + member.name
-        })
         userMessageCountPromise = response.members.map((member) => {
             return UserMessageCountRequest(member)
         });
@@ -155,8 +138,7 @@ function getPercentage() {
     return new Promise(function(resolve, reject) {
         var difference = todayCount - yesterdayCount;
         //check if the yesterday's count is 0 show 100% in order to avoid division by 0 errors
-        var percentage = (yesterdayCount === 0) ? 100 : Math.round(difference / Number(yesterdayCount) * 100);
-        diffPercentage = percentage;
+        diffPercentage = (yesterdayCount === 0) ? 100 : Math.round(difference / Number(yesterdayCount) * 100);
         resolve();
     })
 };
@@ -225,5 +207,4 @@ function postToHTML() {
     document.getElementById("messages3").innerHTML = userTalkativeRanking[2].messages.total;
 };
 
-getData();
 // All promises are now resolved in the getData function
