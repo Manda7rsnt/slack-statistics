@@ -1,5 +1,6 @@
 /* Primary stylesheet for Slack Statistics */
 
+/* General Site Styles */
 html, body {
     height: 100%;
 }
@@ -11,6 +12,9 @@ body {
     display: table-cell;
     vertical-align: middle;
 }
+
+/* Description and Statistics Styles */
+
 #description {
     margin-top: -1.5em;
 }
@@ -19,14 +23,23 @@ body {
     font-weight: 300;
     font-size: 1.5em;
 }
-#todayCounter, #yesterdayCounter {
+#todayCounter, #yesterdayCounter, #medalTitles {
     font-size: 5em;
     color: #424242;
 }
+
+ #medalTitles {
+    font-size: 2em;
+    color: #424242;
+}
+
 #mostTalkativeUser {
     font-size: 3em;
     color: #424242;
 }
+
+/* Header and Wrapper Styles */
+
 #title {
     font-size: 3.5em;
     color: #fff;
@@ -46,6 +59,9 @@ body {
     display: inline-block;
     clear: both;
 }
+
+/* Colour Set Styles */
+
 .colour1 {
     background-color: #70CADB;
     width: 50vh;
@@ -70,6 +86,45 @@ body {
     padding: 10px;
     margin: 10px;
 }
+
+/* Medal Set Styles */
+
+.bronze {
+    background-color: #965A38;
+    width: 50vh;
+    height: 30vh;
+    float: left;
+    padding: 10px;
+    margin: 10px;
+}
+
+.silver {
+    background-color: #A8A8A8;
+    width: 50vh;
+    height: 30vh;
+    float: left;
+    padding: 10px;
+    margin: 10px;
+}
+
+.gold {
+    background-color: #D9A441;
+    width: 50vh;
+    height: 30vh;
+    float: left;
+    padding: 10px;
+    margin: 10px;
+}
+
+.medalText {
+
+  line-height: 0.4;
+  color: white;
+  font-weight:300;
+  font-size:2.5em;
+}
+
+/* Data and Welcome Styles */
 .data {
     font-size: 6em;
     line-height: .8;
