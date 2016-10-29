@@ -196,12 +196,28 @@ function getData() {
         .then(postToHTML)
         .catch(error => alert(error + ". \nEnsure you have added your API token into stats.js"))
 };
+/**
+ * Escape HTML tag opening/closing to prevent xss attacks
+ */
+function escapeHtmlTags(html){
+    html = html.replace(/</, '&lt;');
+    html = html.replace(/>/, '&gt;');
+    return html;
+}
+/**
+ * Escape HTML quots to prevent xss via attribute injection
+ */
+function escapeAttributeQuots(attribute){
+    attribute = attribute.replace(/"/, '&quot;');
+    attribute = attribute.replace(/'/, '&#39;');
+    return attribute;
+}
 
 /**
  * Manipulate DOM to reflect values found in API requests.
  */
 function postToHTML() {
-    document.getElementById("title").innerHTML = 'Slack stats for ' + teamName;
+    document.getElementById("title").innerHTML = 'Slack stats for ' + escapeHtmlTags(teamName);
     document.getElementById("todayCounter").innerHTML = todayCount;
     document.getElementById("yesterdayCounter").innerHTML = yesterdayCount;
 
@@ -211,17 +227,17 @@ function postToHTML() {
         document.getElementById("compare").innerHTML = "That's ~" + Math.abs(diffPercentage) + "% messages less than yesterday!";
     };
 
-    document.getElementById("mostTalkativeUser").innerHTML = userMostTalkative.member.profile.real_name;
+    document.getElementById("mostTalkativeUser").innerHTML = escapeHtmlTags(userMostTalkative.member.profile.real_name);
     document.getElementById("compare2").innerHTML = "is today's most talkative user, with " + userMostTalkative.messages.total + " messages.";
     document.getElementById("mostTalkativeUserPicture").src = getHighestResolutionImage(userMostTalkative.member.profile);
 
-    document.getElementById("realName1").innerHTML = userTalkativeRanking[0].member.profile.real_name;
+    document.getElementById("realName1").innerHTML = escapeHtmlTags(userTalkativeRanking[0].member.profile.real_name);
     document.getElementById("messages1").innerHTML = userTalkativeRanking[0].messages.total;
 
-    document.getElementById("realName2").innerHTML = userTalkativeRanking[1].member.profile.real_name;
+    document.getElementById("realName2").innerHTML = escapeHtmlTags(userTalkativeRanking[1].member.profile.real_name);
     document.getElementById("messages2").innerHTML = userTalkativeRanking[1].messages.total;
 
-    document.getElementById("realName3").innerHTML = userTalkativeRanking[2].member.profile.real_name;
+    document.getElementById("realName3").innerHTML = escapeHtmlTags(userTalkativeRanking[2].member.profile.real_name);
     document.getElementById("messages3").innerHTML = userTalkativeRanking[2].messages.total;
 };
 
