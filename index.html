@@ -6,45 +6,91 @@
     <meta charset="utf-8">
     <meta content="initial-scale=1,maximum-scale=1" name="viewport">
     <meta content="Slack Statistics" name="description">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.0.5/es6-promise.auto.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/jquery.fullPage.min.js"></script>
+    <script type="text/javascript" src="js/scrolloverflow.min.js"></script>
+    <script src="js/stats.js"></script>
+
     <!-- Fonts & CSS -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700" rel="stylesheet" type="text/css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.fullPage.css">
     <link href="img/favicon.ico" rel="icon" type="image/x-icon">
     <title>Slack Statistics</title>
+
+    <!-- scrollOverflow settings -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#fullpage').fullpage({
+                verticalCentered: true,
+                scrollOverflow: true
+            });
+        });
+    </script>
 </head>
 
 <body>
     <a href='https://github.com/pvdsp/slack-statistics' style='position:fixed;padding:5px 45px;width:128px;top:50px;right:-50px;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg);box-shadow:0 0 0 3px #3eb890;text-shadow:0 0 0 #ffffff;background-color:#3eb890;color:#ffffff;font-size:13px;font-family:sans-serif;text-decoration:none;font-weight:bold;border:2px dotted #ffffff;-webkit-backface-visibility:hidden;letter-spacing:.5px;'>Fork me on GitHub</a>
-    <center>
-        <h2 class="welcomeMessage">
-        <script src="js/welcomeMessage.js">
-        </script></h2>
-        <h1 class="header" id="title">Fetching Slack statistics...</h1>
-        <div id="stats">
-            <div id="messageCounterContainers">
-                <div id="wrapper">
-                    <div class="colour1">
-                        <h1 class="data" id="yesterdayCounter">~</h1>
-                        <h2 id="description">messages were sent yesterday.</h2>
-                    </div>
-                    <div class="colour2">
-                        <h1 class="data" id="todayCounter">~</h1>
-                        <h2 id="description">messages have been sent on Slack today.</h2>
-                        <h2 id="compare">That's ~ messages ~ than yesterday!</h2>
-                    </div>
-                    <div class="colour3">
-                        <h1 class="data" id="mostTalkativeUser">~</h1>
-                        <img id="mostTalkativeUserPicture" style="border:solid 4px white;border-radius:90px" height="40%" />
-                        <h2 id="compare2">is today's most talkative user, with ~ messages.</h2>
+    <div id="fullpage">
+        <div class="section">
+            <center>
+                <h2 class="welcomeMessage">
+              <script src="js/welcomeMessage.js">
+              </script></h2>
+                <h1 class="header" id="title">Fetching Slack statistics...</h1>
+                <div id="stats">
+                    <div id="messageCounterContainers">
+                        <div id="wrapper">
+                            <div class="colour1">
+                                <h1 class="data" id="yesterdayCounter">~</h1>
+                                <h2 id="description">messages were sent yesterday.</h2>
+                            </div>
+                            <div class="colour2">
+                                <h1 class="data" id="todayCounter">~</h1>
+                                <h2 id="description">messages have been sent on Slack today.</h2>
+                                <h2 id="compare">That's ~ messages ~ than yesterday!</h2>
+                            </div>
+                            <div class="colour3">
+                                <h1 class="data" id="mostTalkativeUser">~</h1>
+                                <img id="mostTalkativeUserPicture" style="border:solid 4px white;border-radius:90px" height="40%" />
+                                <h2 id="compare2">is today's most talkative user, with ~ messages.</h2>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </center>
         </div>
-    </center>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.0.5/es6-promise.auto.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js"></script>
-    <script src="js/stats.js">
-    </script>
+
+        <div class="section">
+            <table id="leaderboards">
+                <tr>
+                    <th>Ranking</th>
+                    <th>Name</th>
+                    <th>Messages</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td id="realName1"></td>
+                    <td id="messages1"></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td id="realName2"></td>
+                    <td id="messages2"></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td id="realName3"></td>
+                    <td id="messages3"></td>
+                </tr>
+            </table>
+        </div>
+        </script>
+    </div>
 </body>
 
 </html>
