@@ -49,6 +49,16 @@ function getHighestResolutionImage(profile) {
 
 /* ======================================================================== */
 
+if (slackToken == "YOUR-TOKEN-HERE") {
+	var promptToken = prompt("Please enter your token:");
+	if (promptToken != null) {
+		slackToken = promptToken;
+		getData();
+	}
+} else {
+	getData();
+}
+
 /** 
  * Get the messages sent today and yesterday.  Uses
  * Fetch API as an improvement on XMLHttpRequest.
