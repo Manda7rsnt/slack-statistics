@@ -32,7 +32,7 @@ var requestOptions = {
     redirect: 'follow',
 }
 
-// Help Functions
+/* =========================== Helper Functions =========================== */
 function getMaxOfArray(numArray) {
     return Math.max.apply(null, numArray);
 }
@@ -47,8 +47,10 @@ function getHighestResolutionImage(profile) {
       .find((possibleImageUrl) => possibleImageUrl);
 }
 
-/**
- * Get the messages sent today and yesterday. Uses
+/* ======================================================================== */
+
+/** 
+ * Get the messages sent today and yesterday.  Uses
  * Fetch API as an improvement on XMLHttpRequest.
  */
 function SearchMessagesRequest() {
@@ -166,7 +168,7 @@ function getTalkativeUser() {
 
 /**
  * Send out all requests and handle their responses.
- */
+ */ 
 function getData() {
   /**
    * Chain all the requests and console.log caught errors.
@@ -182,7 +184,7 @@ function getData() {
         .then(getPercentage)
         .then(getTalkativeUser)
         .then(postToHTML)
-        .catch(error => console.log(error))
+        .catch(error => alert(error + ". \nEnsure you have added your API token into stats.js"))
 };
 
 /**
