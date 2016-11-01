@@ -118,7 +118,6 @@ body {
 }
 
 .medalText {
-
   line-height: 0.4;
   color: white;
   font-weight:300;
@@ -135,4 +134,8 @@ body {
 .welcomeMessage {
     color: #fff;
     font-weight: 300;
+}
+
+#messages1, #messages2, #messages3 {
+    font-weight: bolder;
 }

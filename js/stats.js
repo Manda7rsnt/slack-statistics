@@ -49,7 +49,7 @@ if (slackToken == "YOUR-TOKEN-HERE") {
 	getData();
 }
 
-/** 
+/**
  * Get the messages sent today and yesterday.  Uses
  * Fetch API as an improvement on XMLHttpRequest.
  */
@@ -160,7 +160,7 @@ function getTalkativeUser() {
 
 /**
  * Send out all requests and handle their responses.
- */ 
+ */
 function getData() {
   /**
    * Chain all the requests and console.log caught errors.
