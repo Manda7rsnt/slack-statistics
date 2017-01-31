@@ -13,7 +13,7 @@
 
 1. Fill in the `slackToken` variable (in `stats.js`) with your own Slack token. Make sure to use a string!
 2. Navigate to the location of `index.html` in your browser.
-3. You're ready to go! If data doesn't appear, check your token has been entered correctly.
+3. You're ready to go! If data doesn't appear, check if your token has been entered correctly.
 
 ## How it works
 Brief explanation of how `stats.js` works, to be added as part of documentation
